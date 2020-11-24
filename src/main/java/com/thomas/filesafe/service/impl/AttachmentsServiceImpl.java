@@ -1,9 +1,12 @@
-package com.thomas.filesafe.service;
+package com.thomas.filesafe.service.impl;
 
 
 import com.thomas.filesafe.domain.Attachment;
 import com.thomas.filesafe.dto.AttachmentDTO;
 import com.thomas.filesafe.dto.FileContentDTO;
+import com.thomas.filesafe.repository.AttachmentsRepository;
+import com.thomas.filesafe.service.AttachmentsService;
+import com.thomas.filesafe.service.StorageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +19,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class AttachmentsServiceImpl implements AttachmentsService {
-
 
     private StorageService storageService;
     private AttachmentsRepository attachmentsRepository;
@@ -57,9 +59,7 @@ public class AttachmentsServiceImpl implements AttachmentsService {
     public Optional<FileContentDTO> getContent(Long id) {
 
         return attachmentsRepository.findById(id).map(a -> {
-
             final byte[] fileContent = storageService.getFileContent(a.getPath());
-
             return new FileContentDTO(a.getFileName(), fileContent, storageService.getMimeTypeFromName(a.getFileName()));
         });
     }

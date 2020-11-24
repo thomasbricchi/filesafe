@@ -1,7 +1,8 @@
-package com.thomas.filesafe.service;
+package com.thomas.filesafe.service.impl;
 
 import com.thomas.filesafe.exception.GetFileContentException;
 import com.thomas.filesafe.exception.UploadFileException;
+import com.thomas.filesafe.service.StorageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

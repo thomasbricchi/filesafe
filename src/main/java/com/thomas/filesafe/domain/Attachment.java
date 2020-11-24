@@ -8,9 +8,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * A Attachment.
- */
 @Entity
 @Table(name = "ATTACHMENT")
 @Data
@@ -23,11 +20,11 @@ public class Attachment implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "file_name", nullable = false)
+    @Column(name = "FILE_NAME", nullable = false)
     private String fileName;
 
     @NotNull
-    @Column(name = "path", nullable = false)
+    @Column(name = "PATH", nullable = false)
     private String path;
 
     @Override
