@@ -14,3 +14,7 @@ spring:
     initialize: true
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+  servlet:
+    multipart:
+      max-file-size: 256MB
+      max-request-size: 256MB

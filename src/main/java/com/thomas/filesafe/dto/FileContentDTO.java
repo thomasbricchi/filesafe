@@ -11,4 +11,11 @@ public class FileContentDTO {
 
     private final String mimeType;
 
+    public String logToString() {
+        return "FileContentDTO{" +
+            "fileName='" + fileName + '\'' +
+            ", content=" + content.length +
+            ", mimeType='" + mimeType + '\'' +
+            '}';
+    }
 }

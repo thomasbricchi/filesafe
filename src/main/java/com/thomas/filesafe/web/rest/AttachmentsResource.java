@@ -20,9 +20,6 @@ import java.util.Optional;
 @RequestMapping("/api/attachments")
 public class AttachmentsResource {
 
-    private static final String ENTITY_NAME = "Attachments";
-
-
     private final AttachmentsService attachmentsService;
 
     public AttachmentsResource(AttachmentsService attachmentsService) {
@@ -52,24 +49,17 @@ public class AttachmentsResource {
     public ResponseEntity<byte[]> getAttachmentContent(@PathVariable Long id) {
         log.info("---START getAttachmentContent---");
         Optional<FileContentDTO> fileContentDTO = attachmentsService.getContent(id);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileContentDTO
-            .map(FileContentDTO::getFileName)
-            .orElse(""));
-
-        headers.add(HttpHeaders.CONTENT_TYPE, fileContentDTO
-            .map(FileContentDTO::getMimeType)
-            .orElse(""));
-
-        headers.add(HttpHeaders.CONTENT_LENGTH, fileContentDTO.map(FileContentDTO::getContent)
-            .map(bytes -> bytes.length)
-            .map(Object::toString)
-            .orElse(""));
         log.info("---END getAttachmentContent---");
-        return fileContentDTO.map(response ->
-            ResponseEntity.ok().headers(headers).body(response.getContent())
-        ).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return fileContentDTO.map(fileContent -> {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + fileContent.getFileName() + "\"");
+            headers.add(HttpHeaders.CONTENT_TYPE, fileContent.getMimeType());
+            headers.add(HttpHeaders.CONTENT_LENGTH, String.valueOf(fileContent.getContent().length));
+            log.info("---WITH " + fileContent.logToString());
+            return ResponseEntity.ok().headers(headers).body(fileContent.getContent());
+        }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+
+
     }
 
 
