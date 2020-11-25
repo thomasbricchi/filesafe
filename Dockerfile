@@ -15,5 +15,5 @@ WORKDIR /home/filesafe
 RUN mkdir attachments
 
 
-EXPOSE 8081
+EXPOSE 8080
 ENTRYPOINT ["java","-jar","/app.jar"]
