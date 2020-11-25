@@ -11,11 +11,9 @@ RUN mvn -f /home/app/pom.xml clean package
 FROM openjdk:11-jdk-slim
 COPY --from=build /home/app/target/*.jar app.jar
 
-
-RUN adduser -D -s /bin/sh filesafe
 WORKDIR /home/filesafe
 RUN mkdir attachments
-USER filesafe
+
 
 EXPOSE 8081
 ENTRYPOINT ["java","-jar","/app.jar"]
