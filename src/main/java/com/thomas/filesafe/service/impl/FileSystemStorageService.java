@@ -3,6 +3,7 @@ package com.thomas.filesafe.service.impl;
 import com.thomas.filesafe.exception.GetFileContentException;
 import com.thomas.filesafe.exception.UploadFileException;
 import com.thomas.filesafe.service.StorageService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,7 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
-
+@Slf4j
 @Service
 public class FileSystemStorageService implements StorageService {
 
@@ -38,6 +39,7 @@ public class FileSystemStorageService implements StorageService {
             }
             Files.copy(file.getInputStream(), folder.resolve(fileName));
         } catch (IOException e) {
+            log.error(e.getMessage());
             throw new UploadFileException(e.getMessage());
         }
 

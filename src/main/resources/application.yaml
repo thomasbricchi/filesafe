@@ -1,5 +1,5 @@
 attachments:
-  base-path: /attachments
+  base-path: /tmp
 spring:
   application:
     name: accounts-app

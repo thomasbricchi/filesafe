@@ -52,7 +52,7 @@ public class AttachmentsServiceImpl implements AttachmentsService {
         attachmentDTO.setId(attachment.getId());
         attachmentDTO.setFileName(attachment.getFileName());
         attachmentDTO.setPath(attachment.getPath());
-        return null;
+        return attachmentDTO;
     }
 
     @Override
