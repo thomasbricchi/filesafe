@@ -1,2 +1,16 @@
 attachments:
-  base-path: /tmp
+  base-path: /attachments
+spring:
+  application:
+    name: accounts-app
+  h2:
+    console:
+      enabled: true
+  datasource:
+    driverClassName: org.h2.Driver
+    password: password
+    url: jdbc:h2:mem:testdb
+    username: sa
+    initialize: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
