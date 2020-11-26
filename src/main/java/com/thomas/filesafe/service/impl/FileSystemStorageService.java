@@ -28,24 +28,33 @@ public class FileSystemStorageService implements StorageService {
 
     @Override
     public String uploadFile(MultipartFile file) {
-        final String path = getPath();
-        String relativePath = path.substring(0, path.lastIndexOf('/') + 1);
-        String fileName = path.substring(path.lastIndexOf('/') + 1);
+        String fileName = UUID.randomUUID().toString();
 
         try {
-            Path folder = Paths.get(relativePath);
-            if (!folder.toFile().exists()) {
-                Files.createDirectories(folder);
-            }
-            Files.copy(file.getInputStream(), folder.resolve(fileName));
+            Path folder = Paths.get(basePath);
+            createFolderWhenNotExists(folder);
+            saveFileIntoFolder(file, folder.resolve(fileName));
         } catch (IOException e) {
             log.error(e.getMessage());
             throw new UploadFileException(e.getMessage());
         }
 
-        return path;
+        return getPath(fileName);
     }
 
+    private void saveFileIntoFolder(MultipartFile file, Path path) throws IOException {
+        Files.copy(file.getInputStream(), path);
+    }
+
+    private void createFolderWhenNotExists(Path folder) throws IOException {
+        if (folderNotExists(folder)) {
+            Files.createDirectories(folder);
+        }
+    }
+
+    private boolean folderNotExists(Path folder) {
+        return !folder.toFile().exists();
+    }
 
     @Override
     public byte[] getFileContent(String path) {
@@ -61,7 +70,7 @@ public class FileSystemStorageService implements StorageService {
     }
 
 
-    public String getPath() {
-        return Paths.get(basePath, UUID.randomUUID().toString()).toFile().getPath();
+    public String getPath(String fileName) {
+        return Paths.get(basePath, fileName).toFile().getPath();
     }
 }
