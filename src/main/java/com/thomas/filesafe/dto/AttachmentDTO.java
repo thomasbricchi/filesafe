@@ -12,4 +12,8 @@ public class AttachmentDTO {
 
     @NotNull
     private String path;
+
+    private String date;
+
+    private String size;
 }

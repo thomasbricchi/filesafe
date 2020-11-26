@@ -6,6 +6,8 @@ import lombok.Data;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +28,14 @@ public class Attachment implements Serializable {
     @NotNull
     @Column(name = "PATH", nullable = false)
     private String path;
+
+    @NotNull
+    @Column(name = "DATE", nullable = false)
+    private Timestamp date;
+
+    @NotNull
+    @Column(name = "SIZE", nullable = false)
+    private Long size;
 
     @Override
     public boolean equals(Object o) {
