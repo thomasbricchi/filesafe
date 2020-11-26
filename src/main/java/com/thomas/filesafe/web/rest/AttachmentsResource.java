@@ -58,9 +58,13 @@ public class AttachmentsResource {
             log.info("---WITH " + fileContent.logToString());
             return ResponseEntity.ok().headers(headers).body(fileContent.getContent());
         }).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-
-
     }
 
-
+    @GetMapping("/delete")
+    public ResponseEntity<Void> deleteAllAttachments() {
+        log.info("---START deleteAllAttachments---");
+        attachmentsService.deleteAll();
+        log.info("---END deleteAllAttachments---");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

@@ -64,6 +64,11 @@ public class AttachmentsServiceImpl implements AttachmentsService {
         });
     }
 
+    @Override
+    public void deleteAll() {
+        attachmentsRepository.deleteAll();
+    }
+
     private Attachment createAttachmentsToSave(String originalFilename, String path) {
         final Attachment attachment = new Attachment();
         attachment.setFileName(originalFilename);
@@ -71,4 +76,6 @@ public class AttachmentsServiceImpl implements AttachmentsService {
         return attachment;
 
     }
+
+
 }

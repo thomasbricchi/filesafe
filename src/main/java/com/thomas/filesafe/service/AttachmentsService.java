@@ -16,5 +16,5 @@ public interface AttachmentsService {
 
     Optional<FileContentDTO> getContent(Long id);
 
-
+    void deleteAll();
 }
